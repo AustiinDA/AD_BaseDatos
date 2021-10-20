@@ -12,7 +12,9 @@ public class Consulta {
             ResultSet results = statement.executeQuery();
 
             while (results.next()){
+                System.out.println("═══════════════════════════════════════════════");
                 System.out.println("Nombre:" +results.getString("Nombre"));
+                System.out.println("Equipo:" +results.getString("Equipo"));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

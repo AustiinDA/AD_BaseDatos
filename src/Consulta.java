@@ -15,7 +15,7 @@ public class Consulta {
                 System.out.println("═══════════════════════════════════════════════");
                 System.out.println("Nombre:" +results.getString("Nombre"));
                 System.out.println("Equipo:" +results.getString("Equipo"));
-s
+
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

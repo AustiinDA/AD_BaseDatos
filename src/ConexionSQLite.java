@@ -17,7 +17,7 @@ public class ConexionSQLite {
             ResultSet rs = s.executeQuery("SELECT * FROM albums");
 
             while (rs.next()){
-                System.out.println("name = " +  rs.getString("title"));
+                System.out.println("Titulos: " +  rs.getString("title"));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

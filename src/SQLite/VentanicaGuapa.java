@@ -1,3 +1,5 @@
+package SQLite;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -6,7 +8,7 @@ public class VentanicaGuapa extends JFrame {
 
     JMenu menu, submenu;
     JMenuBar menuBar;
-    private JButton button1;
+    JMenuItem menuI1;
 
     VentanicaGuapa(){
         super("hola");
@@ -15,6 +17,7 @@ public class VentanicaGuapa extends JFrame {
 
         JMenuBar menuBar = new JMenuBar();
         menuBar.add(menu = new JMenu("Servidor"));
+        menu.add(menuI1 = new JMenuItem("HGD"));
         menuBar.add(submenu = new JMenu("Opciones"));
         setJMenuBar(menuBar);
 

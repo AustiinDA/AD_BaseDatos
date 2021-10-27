@@ -1,3 +1,5 @@
+package SQLite;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -17,7 +19,7 @@ public class ConexionSQLite {
             ResultSet rs = s.executeQuery("SELECT * FROM albums");
 
             while (rs.next()){
-                System.out.println("Titulos: " +  rs.getString("title"));
+                System.out.println("tulos: " +  rs.getString("title"));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

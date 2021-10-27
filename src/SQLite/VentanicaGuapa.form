@@ -15,16 +15,7 @@
         <constraints border-constraint="Center"/>
         <properties/>
         <border type="none"/>
-        <children>
-          <component id="36795" class="javax.swing.JButton" binding="button1" default-binding="true">
-            <constraints border-constraint="Center"/>
-            <properties>
-              <horizontalAlignment value="2"/>
-              <horizontalTextPosition value="2"/>
-              <text value="Button"/>
-            </properties>
-          </component>
-        </children>
+        <children/>
       </grid>
     </children>
   </grid>

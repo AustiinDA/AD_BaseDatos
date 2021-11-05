@@ -19,5 +19,6 @@
     <orderEntry type="library" name="mysql.connector.java" level="project" />
     <orderEntry type="library" name="xerial.sqlite.jdbc" level="project" />
     <orderEntry type="library" name="dev.miku.r2dbc.mysql" level="project" />
+    <orderEntry type="library" name="mysql.connector.java1" level="project" />
   </component>
 </module>

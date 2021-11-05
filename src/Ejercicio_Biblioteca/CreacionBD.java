@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class CreacionBD {
-    public static void main(String[] args) {
+    public static void crearDB() {
         String bd_nombre = "biblioteca";
         //Conexion
         Connection miCon = Conexion.conectar(bd_nombre);
@@ -13,11 +13,8 @@ public class CreacionBD {
 
         try {
             Statement CrearDB = miCon.createStatement();
-            CrearDB.execute(consulta);
-            Statement CrearTabla = miCon.createStatement();
-            CrearTabla.execute(Consultas.crearTablaLibro());
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
     }
 }

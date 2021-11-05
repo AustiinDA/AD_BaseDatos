@@ -5,11 +5,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Conexion {
-    private static final String URL = "jdbc:mysql://localhost:3306/guachibase";
+    private static final String URL = "jdbc:mysql://localhost:3306/";
     private static final String USUARIO = "root";
     private static final String CONTRASEÑA = "";
 
-    public static Connection conectar() {
+    public static Connection conectar(String bd_nombre) {
         Connection conexion = null;
 
         try {

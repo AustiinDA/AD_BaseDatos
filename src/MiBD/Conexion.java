@@ -1,3 +1,5 @@
+package MiBD;
+
 import java.sql.*;
 
 public class Conexion {

@@ -1,4 +1,5 @@
-import javax.management.remote.rmi.RMIConnection;
+package MiBD;
+
 import java.sql.*;
 
 public class Consulta {

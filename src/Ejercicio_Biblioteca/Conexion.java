@@ -5,15 +5,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Conexion {
-    private static final String URL = "jdbc:mysql://localhost:3306/";
-    private static final String USUARIO = "root";
-    private static final String CONTRASEÑA = "";
+    private static final String URL = "jdbc:sqlite:biblioteca.db";
 
-    public static Connection conectar(String bd_nombre) {
+    public static Connection conectar() {
         Connection conexion = null;
-
         try {
-            conexion = DriverManager.getConnection(URL, USUARIO, CONTRASEÑA);
+            conexion = DriverManager.getConnection(URL);
             System.out.println("Exito");
         } catch (SQLException e) {
             System.out.println("Error de conexion");

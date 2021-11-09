@@ -1,3 +1,5 @@
+package MiBD;
+
 import java.sql.*;
 
 public class CrearTabla {
@@ -5,13 +7,13 @@ public class CrearTabla {
     public static void main(String[] args) {
         Connection miCon = Conexion.conectar();
 
-        //Consulta reutilizable
+        //MiBD.Consulta reutilizable
         String crearTablica = "CREATE TABLE clientes (DNI CHAR(9) NOT NULL, APELLIDOS VARCHAR (32) NOT NULL, CP CHAR(5), PRIMARY KEY(DNI))";
         try {
             Statement s = miCon.createStatement();
 //            boolean consultaOK = s.execute(crearTablica);
 //            if (consultaOK) {
-//                System.out.println("Consulta ejecutada con éxito");
+//                System.out.println("MiBD.Consulta ejecutada con éxito");
 //            }
 
             DatabaseMetaData dbmd = miCon.getMetaData();

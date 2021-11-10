@@ -2,12 +2,8 @@ package Ejercicio_Biblioteca;
 
 public class Consultas {
 
-    public static void mostrarTablas(){
-        Conexion.conectar();
-        String consulta = ".tables";
-        System.out.println("xd");
-
-
+    public static String mostrarTablas(){
+        return ".tables";
     }
 
     public static String crearTablaLibro() {
@@ -29,7 +25,7 @@ public class Consultas {
                 + "Codigo INT(64) NOT NULL PRIMARY KEY,"
                 + "Nombre VARCHAR(30),"
                 + "Apellidos VARCHAR(30),"
-                + "Fecha Nacimiento DATE,"
+                + "fechaNacimiento DATE,"
                 + "Domicilio VARCHAR(40),"
                 + "Teléfono VARCHAR(15))";
 
@@ -38,10 +34,13 @@ public class Consultas {
     public static String crearTablaPrestamo() {
 
         return "("
-                + "Codigo Libro INT(64) NOT NULL PRIMARY KEY FOREIGN KEY(Libro),"
-                + "Codigo Socio INT(64) NOT NULL PRIMARY KEY FOREIGN KEY(Socio),"
-                + "Fecha Inicio Prestamo DATE,"
-                + "Fecha Fin Prestamo DATE)";
+                + "codigoLibro INT(64) NOT NULL,"
+                + "codigoSocio INT(64) NOT NULL,"
+                + "fechaInicio Prestamo DATE,"
+                + "fechaFin Prestamo DATE,"
+                + "PRIMARY KEY(codigoLibro, codigoSocio),"
+                + "FOREIGN KEY(codigoSocio) REFERENCES Socio(Codigo),"
+                + "FOREIGN KEY(codigoLibro) REFERENCES Libro(Codigo))";
 
     }
 }

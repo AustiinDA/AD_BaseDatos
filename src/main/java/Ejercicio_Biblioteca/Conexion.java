@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Conexion {
+    private static final Connection miCon = Conexion.conectar();
+
     private static final String URL = "jdbc:sqlite:biblioteca.db";
 
     public static Connection conectar() {

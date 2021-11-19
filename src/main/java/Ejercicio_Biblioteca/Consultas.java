@@ -1,9 +1,46 @@
 package Ejercicio_Biblioteca;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Consultas {
 
-    public static String mostrarTablas(){
-        return ".tables";
+    public static void mostrarTablas() throws SQLException {
+        Connection miCon = Conexion.conectar();
+
+        ResultSet rs = miCon.getMetaData().getTables(null, null, null, null);
+        while (rs.next()) {
+            System.out.println(rs.getString("TABLE_NAME"));
+        }
+    }
+
+    public static void mostrarContenido() {
+        Connection miCon = Conexion.conectar();
+        PreparedStatement consulta;
+
+        System.out.println("\uD83D\uDCD6 LIBROS \uD83D\uDCD6");
+        try {
+            consulta = miCon.prepareStatement("SELECT * FROM Libros");
+            //consulta = miCon.prepareStatement("")
+            ResultSet rs = consulta.executeQuery();
+            while (rs.next()) {
+                System.out.println(" Id:" + rs.getInt("codigo") + " TITULO: " + rs.getString("titulo")
+                        + ", Editorial: " + rs.getString("editorial")
+                        + ", ISBN: " + rs.getString("ISBN")
+                        + ", Año: " + rs.getString("Año")
+                        + ", Nº Ejemplares: " + rs.getInt("numEjemplares")
+                        + ", Nº Páginas: " + rs.getInt("numPaginas")
+
+                );
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public static String crearTablaLibro() {
@@ -21,7 +58,7 @@ public class Consultas {
 
     public static String crearTablaSocio() {
 
-        return"("
+        return "("
                 + "Codigo INT(64) NOT NULL PRIMARY KEY,"
                 + "Nombre VARCHAR(30),"
                 + "Apellidos VARCHAR(30),"

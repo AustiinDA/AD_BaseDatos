@@ -15,10 +15,13 @@ public class CreacionTablas {
         try {
             Statement CrearT = miCon.createStatement();
             CrearT.execute(consulta_tabla);
+            miCon.close();
+            CrearT.close();
         } catch (
                 SQLException throwables) {
             throwables.printStackTrace();
         }
+
     }
 
 }

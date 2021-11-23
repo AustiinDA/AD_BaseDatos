@@ -19,7 +19,11 @@ public class Consultas {
         while (rs.next()) {
             System.out.println(rs.getString("TABLE_NAME"));
         }
+        miCon.close();
+        rs.close();
+        
     }
+
     //Metodo para mostrar el contenido de la tabla libros
     public static void mostrarContenidoLibros() {
         Connection miCon = Conexion.conectar();
@@ -42,11 +46,14 @@ public class Consultas {
                 );
             }
             miCon.close();
+            rs.close();
+            consulta.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
     }
+
     //Metodo para mostrar el contenido de la tabla Socios
     public static void mostrarContenidoSocios() {
         Connection miCon = Conexion.conectar();
@@ -67,10 +74,14 @@ public class Consultas {
 
                 );
             }
+            miCon.close();
+            rs.close();
+            consulta.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
     //Metodo para mostrar el contenido de la tabla Prestamos
     public static void mostrarContenidoPrestamos() {
         Connection miCon = Conexion.conectar();
@@ -88,10 +99,14 @@ public class Consultas {
                         + ", Fecha de Finalización: " + rs.getDate("fechaFinPrestamo")
                 );
             }
+            miCon.close();
+            rs.close();
+            consulta.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
     //Cantidad de libros prestados de la biblioteca (contenido de "Prestamos")
     public static void listaLibrosPrestados() {
         Connection miCon = Conexion.conectar();
@@ -105,10 +120,15 @@ public class Consultas {
             while (rs.next()) {
                 System.out.println("-> " + rs.getInt(1));
             }
+            miCon.close();
+            rs.close();
+            consulta.close();
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
+
     //Libros prestados a socio especifico
     public static void listaLibrosPrestadosSocio(int codigoSocio) {
         Connection miCon = Conexion.conectar();
@@ -131,6 +151,10 @@ public class Consultas {
                 }
 
             }
+            miCon.close();
+            rs.close();
+            consulta.close();
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -152,18 +176,21 @@ public class Consultas {
             while (rs.next()) {
                 System.out.println("Libro encontrado: ");
                 System.out.println("-> Id: " + rs.getInt("Codigo")
-                        +(", Título: " + rs.getString("titulo"))
-                        +(", ISBN: " + rs.getString("ISBN"))
+                        + (", Título: " + rs.getString("titulo"))
+                        + (", ISBN: " + rs.getString("ISBN"))
                 );
 
             }
+            miCon.close();
+            rs.close();
+            consulta.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
 
     //Metodo de listado de libros expirados por socios
-    public static void listadoLibrosPrestadosExipiradosPorSocio( ) {
+    public static void listadoLibrosPrestadosExipiradosPorSocio() {
         Connection miCon = Conexion.conectar();
         PreparedStatement consulta;
 
@@ -178,12 +205,15 @@ public class Consultas {
             while (rs.next()) {
                 System.out.println("Socio encontrado: ");
                 System.out.println("Id: " + rs.getInt("Codigo")
-                        +(", Nombre: " + rs.getString("nombre"))
-                        +(", Appellidos: " + rs.getString("apellidos"))
-                        +(", Teléfono: " + rs.getString("telefono"))
+                        + (", Nombre: " + rs.getString("nombre"))
+                        + (", Appellidos: " + rs.getString("apellidos"))
+                        + (", Teléfono: " + rs.getString("telefono"))
                 );
 
             }
+            miCon.close();
+            rs.close();
+            consulta.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

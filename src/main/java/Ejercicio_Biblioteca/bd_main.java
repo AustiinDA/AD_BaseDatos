@@ -20,5 +20,10 @@ public class bd_main {
         Consultas.mostrarContenidoSocios();
         Consultas.mostrarContenidoPrestamos();
 
+        Consultas.listaLibrosPrestados();
+        Consultas.listaLibrosPrestadosSocio(3);
+        Consultas.listaLibrosPrestadosSocio(2);
+        Consultas.listadoLibrosPrestadosExipirados();
+        Consultas.listadoLibrosPrestadosExipiradosPorSocio();
     }
 }

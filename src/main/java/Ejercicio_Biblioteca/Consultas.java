@@ -4,9 +4,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 
 public class Consultas {
+    //Colores de error
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_RESET = "\u001B[0m";
 
+    //Incio Consultas
     public static void mostrarTablas() throws SQLException {
         Connection miCon = Conexion.conectar();
 
@@ -26,7 +31,8 @@ public class Consultas {
             //consultaLibros = miCon.prepareStatement("")
             ResultSet rs = consulta.executeQuery();
             while (rs.next()) {
-                System.out.println(" Id:" + rs.getInt("codigo") + " TITULO: " + rs.getString("titulo")
+                System.out.println(" Id:" + rs.getInt("codigo")
+                        + " TITULO: " + rs.getString("titulo")
                         + ", Editorial: " + rs.getString("editorial")
                         + ", ISBN: " + rs.getString("ISBN")
                         + ", Año: " + rs.getString("Año")
@@ -85,6 +91,100 @@ public class Consultas {
         }
     }
 
+    public static void listaLibrosPrestados() {
+        Connection miCon = Conexion.conectar();
+        PreparedStatement consulta;
+
+        System.out.println("\n\uD83D\uDCC2 Cantidad de libros prestados actulamente: ");
+        try {
+            consulta = miCon.prepareStatement("SELECT COUNT(codigoLibro) FROM Prestamos");
+
+            ResultSet rs = consulta.executeQuery();
+            while (rs.next()) {
+                System.out.println("-> " + rs.getInt(1));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public static void listaLibrosPrestadosSocio(int codigoSocio) {
+        Connection miCon = Conexion.conectar();
+        PreparedStatement consulta;
+
+        System.out.println("\n\uD83D\uDCC2 Cantidad de libros prestados a socio con Id: " + codigoSocio);
+        try {
+            consulta = miCon.prepareStatement("SELECT COUNT(codigoSocio) FROM Prestamos WHERE codigoSocio = " + codigoSocio);
+
+            ResultSet rs = consulta.executeQuery();
+            while (rs.next()) {
+                if (rs.getInt(1) > 0) {
+
+                    System.out.println("-> " + rs.getInt(1));
+
+                } else {
+                    System.out.println("-> " + rs.getInt(1));
+
+                    System.out.println(ANSI_YELLOW + "Socio especificado sin prestamos activos" + ANSI_RESET);
+                }
+
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public static void listadoLibrosPrestadosExipirados() {
+        Connection miCon = Conexion.conectar();
+        PreparedStatement consulta;
+
+        long tiempo = System.nanoTime();
+        Date tiempoActual = new Date(tiempo);
+
+        System.out.println("\n\uD83D\uDCC2 Cantidad de libros prestados que han exedido la fecha límite: ");
+        try {
+            consulta = miCon.prepareStatement("SELECT * FROM Libros WHERE codigo IN (SELECT codigoLibro FROM Prestamos WHERE fechaFin <= " + tiempoActual.getTime() + ")");
+
+            ResultSet rs = consulta.executeQuery();
+            while (rs.next()) {
+                System.out.println("Libro encontrado: ");
+                System.out.println("-> Id: " + rs.getInt("Codigo")
+                        +(", Título: " + rs.getString("titulo"))
+                        +(", ISBN: " + rs.getString("ISBN"))
+                );
+
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public static void listadoLibrosPrestadosExipiradosPorSocio( ) {
+        Connection miCon = Conexion.conectar();
+        PreparedStatement consulta;
+
+        long tiempo = System.nanoTime();
+        Date tiempoActual = new Date(tiempo);
+
+        System.out.println("\n\uD83D\uDCC2 Cantidad de libros prestados a socios que han exedido la fecha límite: ");
+        try {
+            consulta = miCon.prepareStatement("SELECT * FROM Socios WHERE Codigo IN (SELECT codigoSocio FROM Prestamos WHERE fechaFin <= " + tiempoActual.getTime() + ")");
+
+            ResultSet rs = consulta.executeQuery();
+            while (rs.next()) {
+                System.out.println("Socio encontrado: ");
+                System.out.println("Id: " + rs.getInt("Codigo")
+                        +(", Nombre: " + rs.getString("nombre"))
+                        +(", Appellidos: " + rs.getString("apellidos"))
+                        +(", Teléfono: " + rs.getString("telefono"))
+                );
+
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
 
     public static String crearTablaLibro() {
 
@@ -116,8 +216,8 @@ public class Consultas {
         return "("
                 + "codigoLibro INT(64) NOT NULL,"
                 + "codigoSocio INT(64) NOT NULL,"
-                + "fechaInicio Prestamo DATE,"
-                + "fechaFin Prestamo DATE,"
+                + "fechaInicioPrestamo DATE,"
+                + "fechaFinPrestamo DATE,"
                 + "PRIMARY KEY(codigoLibro, codigoSocio),"
                 + "FOREIGN KEY(codigoSocio) REFERENCES Socio(Codigo),"
                 + "FOREIGN KEY(codigoLibro) REFERENCES Libro(Codigo))";

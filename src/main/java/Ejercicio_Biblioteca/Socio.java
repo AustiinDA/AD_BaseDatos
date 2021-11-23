@@ -7,6 +7,7 @@ public class Socio {
 int codigo;
 String Nombre, Apellidos, Domicilio, Telefono;
 Date fechaNacimiento;
+    //Constructor de los Socios
 
     public Socio(int codigo, String nombre, String apellidos, String domicilio, String telefono, Date fechaNacimiento) {
         this.codigo = codigo;
@@ -16,7 +17,7 @@ Date fechaNacimiento;
         Telefono = telefono;
         this.fechaNacimiento = fechaNacimiento;
     }
-
+    //Getters y setters
     public int getCodigo() {
         return codigo;
     }

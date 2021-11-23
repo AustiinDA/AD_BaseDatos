@@ -7,13 +7,15 @@ public class Prestamo {
     int codigoLibro, codigoSocio;
     Date fechaInicio, fechaFin;
 
+    //Constructor de los Prestamos
+
     public Prestamo(int codigoLibro, int codigoSocio, Date fechaInicio, Date fechaFin) {
         this.codigoLibro = codigoLibro;
         this.codigoSocio = codigoSocio;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
     }
-
+    //Getters y setters
     public int getCodigoLibro() {
         return codigoLibro;
     }

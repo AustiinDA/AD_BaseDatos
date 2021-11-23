@@ -20,7 +20,7 @@ public class Consultas {
             System.out.println(rs.getString("TABLE_NAME"));
         }
     }
-
+    //Metodo para mostrar el contenido de la tabla libros
     public static void mostrarContenidoLibros() {
         Connection miCon = Conexion.conectar();
         PreparedStatement consulta;
@@ -41,11 +41,13 @@ public class Consultas {
 
                 );
             }
+            miCon.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
 
+    }
+    //Metodo para mostrar el contenido de la tabla Socios
     public static void mostrarContenidoSocios() {
         Connection miCon = Conexion.conectar();
         PreparedStatement consulta;
@@ -69,7 +71,7 @@ public class Consultas {
             e.printStackTrace();
         }
     }
-
+    //Metodo para mostrar el contenido de la tabla Prestamos
     public static void mostrarContenidoPrestamos() {
         Connection miCon = Conexion.conectar();
         PreparedStatement consulta;
@@ -82,15 +84,15 @@ public class Consultas {
             while (rs.next()) {
                 System.out.println(" Id-Libro:" + rs.getInt("codigoLibro")
                         + ", Id-Socio: " + rs.getInt("codigoSocio")
-                        + ", Fecha de Inicio: " + rs.getDate("fechaInicio")
-                        + ", Fecha de Finalización: " + rs.getDate("fechaFin")
+                        + ", Fecha de Inicio: " + rs.getDate("fechaInicioPrestamo")
+                        + ", Fecha de Finalización: " + rs.getDate("fechaFinPrestamo")
                 );
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
+    //Cantidad de libros prestados de la biblioteca (contenido de "Prestamos")
     public static void listaLibrosPrestados() {
         Connection miCon = Conexion.conectar();
         PreparedStatement consulta;
@@ -107,7 +109,7 @@ public class Consultas {
             throwables.printStackTrace();
         }
     }
-
+    //Libros prestados a socio especifico
     public static void listaLibrosPrestadosSocio(int codigoSocio) {
         Connection miCon = Conexion.conectar();
         PreparedStatement consulta;
@@ -134,16 +136,17 @@ public class Consultas {
         }
     }
 
+    //Metodo de listado de libros expirados
     public static void listadoLibrosPrestadosExipirados() {
         Connection miCon = Conexion.conectar();
         PreparedStatement consulta;
 
-        long tiempo = System.nanoTime();
+        long tiempo = System.currentTimeMillis();
         Date tiempoActual = new Date(tiempo);
 
         System.out.println("\n\uD83D\uDCC2 Cantidad de libros prestados que han exedido la fecha límite: ");
         try {
-            consulta = miCon.prepareStatement("SELECT * FROM Libros WHERE codigo IN (SELECT codigoLibro FROM Prestamos WHERE fechaFin <= " + tiempoActual.getTime() + ")");
+            consulta = miCon.prepareStatement("SELECT * FROM Libros WHERE codigo IN (SELECT codigoLibro FROM Prestamos WHERE fechaFinPrestamo < " + tiempoActual.getTime() + ")");
 
             ResultSet rs = consulta.executeQuery();
             while (rs.next()) {
@@ -159,16 +162,17 @@ public class Consultas {
         }
     }
 
+    //Metodo de listado de libros expirados por socios
     public static void listadoLibrosPrestadosExipiradosPorSocio( ) {
         Connection miCon = Conexion.conectar();
         PreparedStatement consulta;
 
-        long tiempo = System.nanoTime();
+        long tiempo = System.currentTimeMillis();
         Date tiempoActual = new Date(tiempo);
 
-        System.out.println("\n\uD83D\uDCC2 Cantidad de libros prestados a socios que han exedido la fecha límite: ");
+        System.out.println("\n\uD83D\uDCC2 Libros prestados a socios que han exedido la fecha límite: ");
         try {
-            consulta = miCon.prepareStatement("SELECT * FROM Socios WHERE Codigo IN (SELECT codigoSocio FROM Prestamos WHERE fechaFin <= " + tiempoActual.getTime() + ")");
+            consulta = miCon.prepareStatement("SELECT * FROM Socios WHERE codigo IN (SELECT codigoSocio FROM Prestamos WHERE fechaFinPrestamo < " + tiempoActual.getTime() + ")");
 
             ResultSet rs = consulta.executeQuery();
             while (rs.next()) {

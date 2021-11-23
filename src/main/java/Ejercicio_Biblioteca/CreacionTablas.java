@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class CreacionTablas {
-    //MiBD.Conexion
+    //Metodo de creacion de tablas
     public static void crearTabla(String nombre_tabla, String texto_consula) {
         String bd_nombre = "biblioteca";
         Connection miCon = Conexion.conectar();

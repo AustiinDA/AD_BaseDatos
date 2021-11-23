@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.sql.Date;
 
-
+//Creación de datos de las tablas, guardados en un Arraylist (objetos)
 public class insercionDatos {
 
     public static ArrayList<Libro> libros = new ArrayList<>();
@@ -27,11 +27,13 @@ public class insercionDatos {
 
         prestamos.add(new Prestamo(1, 2, Date.valueOf("2019-04-02"), Date.valueOf("2021-12-12")));
         prestamos.add(new Prestamo(3, 1, Date.valueOf("2021-09-12"), Date.valueOf("2021-12-31")));
+        prestamos.add(new Prestamo(5, 2, Date.valueOf("2021-10-15"), Date.valueOf("2021-11-1")));
+        prestamos.add(new Prestamo(2, 0, Date.valueOf("2021-10-19"), Date.valueOf("2021-10-26")));
 
         System.out.println("-- Datos procesados --");
 
     }
-
+    //Inserccion de la tabla Libros
     public static void insertarLibros() {
         Connection miCon = Conexion.conectar();
         PreparedStatement consulta;
@@ -55,7 +57,7 @@ public class insercionDatos {
             throwables.printStackTrace();
         }
     }
-
+    //Inserccion de la tabla Socios
     public static void insertarSocios() {
         Connection miCon = Conexion.conectar();
         PreparedStatement consulta;
@@ -76,7 +78,7 @@ public class insercionDatos {
             throwables.printStackTrace();
         }
     }
-
+    //Inserccion de la tabla Prestamos
     public static void insertarPrestamo() {
 
         Connection miCon = Conexion.conectar();
@@ -84,7 +86,7 @@ public class insercionDatos {
 
         try {
             for (Prestamo prestamo : prestamos) {
-                consulta = miCon.prepareStatement("INSERT OR IGNORE INTO prestamos(codigoLibro, codigoSocio, fechaInicio, fechaFin) VALUES(?, ?, ?, ?)");
+                consulta = miCon.prepareStatement("INSERT OR IGNORE INTO prestamos(codigoLibro, codigoSocio, fechaInicioPrestamo, fechaFinPrestamo) VALUES(?, ?, ?, ?)");
 
                 consulta.setInt(1, prestamo.getCodigoLibro());
                 consulta.setInt(2, prestamo.getCodigoSocio());

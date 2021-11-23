@@ -5,6 +5,7 @@ public class Libro {
     int Codigo, Año, NumEjemplares, NumPaginas;
     String Titulo, Editorial, ISBN;
 
+    //Constructor de los libros
     public Libro(int codigo, String titulo, String editorial, String ISBN, int año, int numEjemplares, int numPaginas) {
         Codigo = codigo;
         Titulo = titulo;
@@ -14,7 +15,7 @@ public class Libro {
         NumEjemplares = numEjemplares;
         NumPaginas = numPaginas;
     }
-
+    //Getters y setters
     public int getCodigo() {
         return Codigo;
     }

@@ -3,7 +3,7 @@ package Ejercicio_Biblioteca;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
+//Conexion con la base de datos (biblioteca.db) y uso del driver SQLite
 public class Conexion {
     private static final Connection miCon = Conexion.conectar();
 

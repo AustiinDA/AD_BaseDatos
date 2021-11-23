@@ -62,7 +62,7 @@ public class insercionDatos {
 
         try {
             for (Socio socio : socios) {
-                consulta = miCon.prepareStatement("INSERT IGNORE INTO socios(codigo, nombre, apellidos, domicilio, telefono, fechaNacimiento) VALUES(?, ?, ?, ?, ?, ? )");
+                consulta = miCon.prepareStatement("INSERT OR IGNORE INTO socios(codigo, nombre, apellidos, domicilio, telefono, fechaNacimiento) VALUES(?, ?, ?, ?, ?, ? )");
 
                 consulta.setInt(1, socio.getCodigo());
                 consulta.setString(2, socio.getNombre());
@@ -84,13 +84,14 @@ public class insercionDatos {
 
         try {
             for (Prestamo prestamo : prestamos) {
-                consulta = miCon.prepareStatement("INSERT IGNORE INTO prestamos(codigoLibro, codigoSocio, fechaInicio, fechaFin) VALUES(?, ?, ?, ?)");
+                consulta = miCon.prepareStatement("INSERT OR IGNORE INTO prestamos(codigoLibro, codigoSocio, fechaInicio, fechaFin) VALUES(?, ?, ?, ?)");
 
                 consulta.setInt(1, prestamo.getCodigoLibro());
                 consulta.setInt(2, prestamo.getCodigoSocio());
                 consulta.setDate(3, prestamo.getFechaInicio());
-                consulta.setDate(4, prestamo.getFechaInicio());
+                consulta.setDate(4, prestamo.getFechaFin());
                 consulta.executeUpdate();
+
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

@@ -9,10 +9,16 @@ public class bd_main {
         CreacionTablas.crearTabla("Socios", Consultas.crearTablaSocio());
         CreacionTablas.crearTabla("Prestamos", Consultas.crearTablaPrestamo());
         Consultas.mostrarTablas();
-        insercionDatos.crearDatosTablas();
-        insercionDatos.insertarLibros();
 
-        Consultas.mostrarContenido();
+        insercionDatos.crearDatosTablas();
+
+        insercionDatos.insertarLibros();
+        insercionDatos.insertarSocios();
+        insercionDatos.insertarPrestamo();
+
+        Consultas.mostrarContenidoLibros();
+        Consultas.mostrarContenidoSocios();
+        Consultas.mostrarContenidoPrestamos();
 
     }
 }

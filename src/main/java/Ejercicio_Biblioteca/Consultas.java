@@ -16,14 +16,14 @@ public class Consultas {
         }
     }
 
-    public static void mostrarContenido() {
+    public static void mostrarContenidoLibros() {
         Connection miCon = Conexion.conectar();
         PreparedStatement consulta;
 
         System.out.println("\uD83D\uDCD6 LIBROS \uD83D\uDCD6");
         try {
             consulta = miCon.prepareStatement("SELECT * FROM Libros");
-            //consulta = miCon.prepareStatement("")
+            //consultaLibros = miCon.prepareStatement("")
             ResultSet rs = consulta.executeQuery();
             while (rs.next()) {
                 System.out.println(" Id:" + rs.getInt("codigo") + " TITULO: " + rs.getString("titulo")
@@ -34,14 +34,57 @@ public class Consultas {
                         + ", Nº Páginas: " + rs.getInt("numPaginas")
 
                 );
-
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
+
+    public static void mostrarContenidoSocios() {
+        Connection miCon = Conexion.conectar();
+        PreparedStatement consulta;
+
+        System.out.println("\uD83D\uDC65 SOCIOS \uD83D\uDC65");
+        try {
+            consulta = miCon.prepareStatement("SELECT * FROM Socios");
+
+            ResultSet rs = consulta.executeQuery();
+            while (rs.next()) {
+                System.out.println(" Id:" + rs.getInt("codigo")
+                        + " Nombre: " + rs.getString("nombre")
+                        + ", Apellidos: " + rs.getString("apellidos")
+                        + ", Domicilio: " + rs.getString("domicilio")
+                        + ", Telefono: " + rs.getString("telefono")
+                        + ", Fecha Nacimiento: " + rs.getDate("fechaNacimiento")
+
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void mostrarContenidoPrestamos() {
+        Connection miCon = Conexion.conectar();
+        PreparedStatement consulta;
+
+        System.out.println("\uD83D\uDCB0 PRESTAMOS \uD83D\uDCB0");
+        try {
+            consulta = miCon.prepareStatement("SELECT * FROM Prestamos");
+
+            ResultSet rs = consulta.executeQuery();
+            while (rs.next()) {
+                System.out.println(" Id-Libro:" + rs.getInt("codigoLibro")
+                        + ", Id-Socio: " + rs.getInt("codigoSocio")
+                        + ", Fecha de Inicio: " + rs.getDate("fechaInicio")
+                        + ", Fecha de Finalización: " + rs.getDate("fechaFin")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public static String crearTablaLibro() {
 
@@ -64,7 +107,7 @@ public class Consultas {
                 + "Apellidos VARCHAR(30),"
                 + "fechaNacimiento DATE,"
                 + "Domicilio VARCHAR(40),"
-                + "Teléfono VARCHAR(15))";
+                + "Telefono VARCHAR(15))";
 
     }
 

@@ -13,8 +13,11 @@ public class CreacionBD {
 
         try {
             Statement CrearDB = miCon.createStatement();
+            miCon.close();
+            CrearDB.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
     }
 }

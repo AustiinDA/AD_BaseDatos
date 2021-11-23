@@ -35,12 +35,9 @@ public class insercionDatos {
     }
     //Inserccion de la tabla Libros
     public static void insertarLibros() {
-        Connection miCon = Conexion.conectar();
-        PreparedStatement consulta;
-
-        try {
+        //Abriendo y cerrando recursos usando un try con recursos. Gracias a esto no es necesario hacer close() en las conexiones
+        try (Connection miCon = Conexion.conectar();PreparedStatement consulta = miCon.prepareStatement("INSERT OR IGNORE INTO libros(codigo, titulo, editorial, ISBN, año, numEjemplares, numPaginas) VALUES(?, ?, ?, ?, ?, ?, ?)");) {
             for (Libro libro : libros) {
-                consulta = miCon.prepareStatement("INSERT OR IGNORE INTO libros(codigo, titulo, editorial, ISBN, año, numEjemplares, numPaginas) VALUES(?, ?, ?, ?, ?, ?, ?)");
 
                 consulta.setInt(1, libro.getCodigo());
                 consulta.setString(2, libro.getTitulo());
@@ -51,8 +48,9 @@ public class insercionDatos {
                 consulta.setInt(7, libro.getNumPaginas());
                 consulta.executeUpdate();
 
-
             }
+
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -74,6 +72,8 @@ public class insercionDatos {
                 consulta.setDate(6, socio.getFechaNacimiento());
                 consulta.executeUpdate();
             }
+
+            miCon.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -95,6 +95,8 @@ public class insercionDatos {
                 consulta.executeUpdate();
 
             }
+            miCon.close();
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

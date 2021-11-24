@@ -2,34 +2,46 @@ package SQLite;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.sql.SQLException;
 
-public class VentanicaGuapa extends JFrame {
-    private JPanel panelPrincipal;
+public class VentanicaGuapa extends JFrame{
 
-    JMenu menu, submenu;
-    JMenuBar menuBar;
-    JMenuItem menuI1;
+    JPanel panelPrincipal;
+    JPanel panelBotones;
 
-    VentanicaGuapa(){
-        super("hola");
+    JButton boton1;
+    JButton boton2;
+    JButton boton3;
+
+    JPanel panelLista;
+    JList listadoBD;
+
+
+    VentanicaGuapa() {
+        super("Base de datos");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setContentPane(panelPrincipal);
 
-        JMenuBar menuBar = new JMenuBar();
-        menuBar.add(menu = new JMenu("Servidor"));
-        menu.add(menuI1 = new JMenuItem("HGD"));
-        menuBar.add(submenu = new JMenu("Opciones"));
-        setJMenuBar(menuBar);
 
         setPreferredSize(new Dimension(320, 390));
         this.pack();
         setLocationRelativeTo(null);
         setVisible(true);
 
+        panelPrincipal.addComponentListener(new ComponentAdapter() {
+        });
     }
 
     public static void main(String[] args) {
         new VentanicaGuapa();
     }
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+    }
+
 }
 

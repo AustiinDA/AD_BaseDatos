@@ -4,10 +4,12 @@ import Ejercicio_Biblioteca.Conexion;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.sql.*;
 
-public class VentanicaGuapa extends JFrame {
+public class VentanicaGuapa extends JFrame implements ActionListener {
 
     public JPanel panelPrincipal;
     public JPanel panelBotones;
@@ -17,7 +19,7 @@ public class VentanicaGuapa extends JFrame {
     public  JButton boton3;
 
     public  JPanel panelLista;
-    private JList<Pelicula> listaPeliculas;
+    public JList<Pelicula> listaPeliculas;
 
     public static DefaultListModel<Pelicula> modelo = new DefaultListModel<>();
 
@@ -29,15 +31,14 @@ public class VentanicaGuapa extends JFrame {
 
         listaPeliculas.setModel(modelo);
 
-
+        boton1.addActionListener(this);
 
         setPreferredSize(new Dimension(660, 400 ));
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
         poblarLista();
-        panelPrincipal.addComponentListener(new ComponentAdapter() {
-        });
+
     }
 
 
@@ -46,7 +47,7 @@ public class VentanicaGuapa extends JFrame {
     }
 
     //Poblar la JList con elementos
-    public void poblarLista() throws SQLException {
+    public static void poblarLista() throws SQLException {
         Connection miCon = ConexionMySQL.conectar();
         PreparedStatement statement;
 
@@ -71,6 +72,23 @@ public class VentanicaGuapa extends JFrame {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        String txtBotones = e.getActionCommand();
+
+        if (txtBotones.equals("Añadir")) {
+            listaPeliculas.clearSelection();
+            try {
+                new MenuAñadir();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+
     }
 }
 

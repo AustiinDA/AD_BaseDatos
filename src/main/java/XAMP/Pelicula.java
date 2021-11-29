@@ -1,14 +1,16 @@
-package SQLite;
+package XAMP;
 
 public class Pelicula {
     String titulo, director, genero;
-    int duracion;
+    int año, duracion;
 
-    public Pelicula(String titulo, String director, String genero, int duracion) {
+    public Pelicula(String titulo, String director, String genero, int año, int duracion) {
         this.titulo = titulo;
         this.director = director;
         this.genero = genero;
+        this.año = año;
         this.duracion = duracion;
+
     }
 
     public String getTitulo() {
@@ -35,6 +37,14 @@ public class Pelicula {
         this.genero = genero;
     }
 
+    public int getAño() {
+        return año;
+    }
+
+    public void setAño(int año) {
+        this.año = año;
+    }
+
     public int getDuracion() {
         return duracion;
     }
@@ -45,11 +55,11 @@ public class Pelicula {
 
     @Override
     public String toString() {
-        return "Pelicula{" +
-                "titulo='" + titulo + '\'' +
-                ", director='" + director + '\'' +
-                ", genero='" + genero + '\'' +
-                ", duracion=" + duracion +
-                '}';
+        return "Película:" +
+                " Título: " + titulo
+                + ", Director: " + director
+                + ", Género: " + genero
+                + ", Año: " + año
+                + ", Duración: " + duracion +" min";
     }
 }

@@ -19,9 +19,12 @@ public class VentanicaGuapa extends JFrame implements ActionListener {
     public JButton boton3;
 
     public JPanel panelLista;
-    public JList<Pelicula> listaPeliculas;
 
+    public JList<Pelicula> listaPeliculas;
     public static DefaultListModel<Pelicula> modelo = new DefaultListModel<>();
+
+   /* public static DefaultListModel<Pelicula> modeloFiltrado = new DefaultListModel();
+    public static JList<Pelicula> listaFiltrada;*/
 
 
     VentanicaGuapa() throws SQLException {
@@ -57,8 +60,7 @@ public class VentanicaGuapa extends JFrame implements ActionListener {
             statement = miCon.prepareStatement("SELECT * FROM taquilla");
             ResultSet resultSet = statement.executeQuery();
 
-            while (resultSet.next())
-            {
+            while (resultSet.next()) {
                 // String itemCode = resultSet.getString("titulo"); //get the element in column "
                 modelo.addElement(new Pelicula(resultSet.getString("titulo"),
                         resultSet.getString("director"),
@@ -75,6 +77,7 @@ public class VentanicaGuapa extends JFrame implements ActionListener {
             e.printStackTrace();
         }
     }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -93,7 +96,7 @@ public class VentanicaGuapa extends JFrame implements ActionListener {
             }
         } else if (txtBotones.equals("Eliminar")) {
             try {
-                statement = miCon.prepareStatement("DELETE FROM taquilla WHERE titulo='"+listaPeliculas.getSelectedValue().titulo+ "';");
+                statement = miCon.prepareStatement("DELETE FROM taquilla WHERE titulo='" + listaPeliculas.getSelectedValue().titulo + "';");
                 statement.execute();
 
             } catch (SQLException ex) {
@@ -101,6 +104,17 @@ public class VentanicaGuapa extends JFrame implements ActionListener {
             }
 
             modelo.remove(listaPeliculas.getSelectedIndex());
+
+
+        } else if (txtBotones.equals("Filtrar")) {
+            listaPeliculas.clearSelection();
+
+            try {
+                new MenuFiltrado();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            //listaFiltrada.setModel(modeloFiltrado);
 
 
         }

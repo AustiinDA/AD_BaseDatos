@@ -8,6 +8,8 @@ import java.sql.Statement;
 
 
 public class ConexionMySQL {
+
+    //Conexión a la base de datos MySQL (XAMP)
     public static Connection conectar() {
         Connection conexion = null;
         final String USUARIO = "root";

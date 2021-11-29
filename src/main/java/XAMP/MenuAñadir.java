@@ -21,11 +21,12 @@ public class MenuAñadir extends JFrame implements ActionListener {
     private JTextField textoDirector;
     private JTextField textoAño;
 
-    public void guardarPelicula() throws SQLException {
+    public void guardarPelicula() throws SQLException { //Este método se encarga de guardar las películas en la lista
 
         Connection miCon = ConexionMySQL.conectar();
         PreparedStatement statement;
 
+        //Condiciones para el cumplimiento de sintaxis, errores, etc..
         if (textoTitulo.getText().equals("") || textoDirector.equals("") || textoGenero.equals("") ||
                 textoAño.equals("") || textoDuracion.equals("")) {
 
@@ -33,6 +34,7 @@ public class MenuAñadir extends JFrame implements ActionListener {
 
         } else {
             try {
+                //Consultas para insertar los datos en la BDD
                 statement = miCon.prepareStatement("INSERT IGNORE INTO taquilla (titulo, director, genero, año, duracion) VALUES (?,?,?,?,?)");
                 statement.setString(1, String.valueOf(textoTitulo.getText()));
                 statement.setString(2, String.valueOf(textoDirector.getText()));
@@ -42,17 +44,21 @@ public class MenuAñadir extends JFrame implements ActionListener {
 
                 statement.executeUpdate();
 
+            //Recursos cerrados
+                statement.close();
+                miCon.close();
 
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-
         }
 
+        //Metodo para rellenar la lista con el contenido
         VentanicaGuapa.poblarLista();
 
     }
 
+    //Interfaz
     MenuAñadir() throws SQLException {
         super("Añadir nuevos elementos: ");
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -60,7 +66,7 @@ public class MenuAñadir extends JFrame implements ActionListener {
 
 
         aceptarButton.addActionListener(this);
-        cancelarButton.addActionListener(this);
+
 
         setPreferredSize(new Dimension(500, 250));
         pack();
@@ -70,16 +76,20 @@ public class MenuAñadir extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        //Si pulsamos un boton que cumpla con algun requerimiento accionara un metodo
         String txtBotones = e.getActionCommand();
-
-        if (txtBotones.equals("Aceptar")) {
-            try {
-                guardarPelicula();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
+        try {
+            if (txtBotones.equals("Aceptar")) {
+                try {
+                    guardarPelicula();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
             }
-            dispose();
 
+        } catch (NumberFormatException e2) {
+            JOptionPane.showMessageDialog(null, "No puede haber caracteres en campos númericos", "Error", JOptionPane.ERROR_MESSAGE);
+            //e2.printStackTrace();
         }
 
     }

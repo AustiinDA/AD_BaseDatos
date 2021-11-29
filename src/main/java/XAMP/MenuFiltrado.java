@@ -32,6 +32,7 @@ public class MenuFiltrado extends JFrame implements ActionListener {
         setVisible(true);
     }
 
+    //El metodo filtra por el nombre del director
     public void filtrarPelicula() throws SQLException {
         Connection miCon = ConexionMySQL.conectar();
         PreparedStatement statement;
@@ -39,7 +40,7 @@ public class MenuFiltrado extends JFrame implements ActionListener {
 
         if (textoAFiltrar.getText().equals("")) {
 
-            JOptionPane.showMessageDialog(null, "Recuerda filtrar el nombre completo, y no pueden haber campos vacíos", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Recuerda filtrar por nombre completo y no dejar campos vacíos", "Información", JOptionPane.INFORMATION_MESSAGE);
         } else {
             modeloFiltrado.clear();
 
@@ -51,32 +52,31 @@ public class MenuFiltrado extends JFrame implements ActionListener {
                 ResultSet rs = statement.executeQuery();
 
                 while (rs.next()) {
-                    // String itemCode = resultSet.getString("titulo"); //get the element in column "
+                    //Añade elementos coincidentes a la nueva lista filtrada
                     modeloFiltrado.addElement(new Pelicula(rs.getString("titulo"),
                             rs.getString("director"),
                             rs.getString("genero"),
                             rs.getInt("año"),
                             rs.getInt("duracion")));
-                    //añadir cada elemento al modelo
                 }
-
+                //Recursos cerrados
                 rs.close();
                 statement.close();
                 miCon.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-
+            //Establecemos modelo de la lista filtrada
             listaFiltrada.setModel(modeloFiltrado);
 
             System.out.println(modeloFiltrado);
 
         }
-
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        //Si pulsamos un boton que cumpla con algun requerimiento accionara un metodo
         String txtBotones = e.getActionCommand();
 
         if (txtBotones.equals("Aceptar")) {

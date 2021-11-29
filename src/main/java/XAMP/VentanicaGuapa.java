@@ -23,10 +23,7 @@ public class VentanicaGuapa extends JFrame implements ActionListener {
     public JList<Pelicula> listaPeliculas;
     public static DefaultListModel<Pelicula> modelo = new DefaultListModel<>();
 
-   /* public static DefaultListModel<Pelicula> modeloFiltrado = new DefaultListModel();
-    public static JList<Pelicula> listaFiltrada;*/
-
-
+    //Interfaz
     VentanicaGuapa() throws SQLException {
         super("Base de datos");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -61,7 +58,7 @@ public class VentanicaGuapa extends JFrame implements ActionListener {
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                // String itemCode = resultSet.getString("titulo"); //get the element in column "
+                //Conseguir los elementos en columna
                 modelo.addElement(new Pelicula(resultSet.getString("titulo"),
                         resultSet.getString("director"),
                         resultSet.getString("genero"),
@@ -81,6 +78,8 @@ public class VentanicaGuapa extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        //Si pulsamos un boton que cumpla con algun requerimiento accionara un metodo
+
         Connection miCon = ConexionMySQL.conectar();
         PreparedStatement statement;
 
@@ -95,6 +94,7 @@ public class VentanicaGuapa extends JFrame implements ActionListener {
                 ex.printStackTrace();
             }
         } else if (txtBotones.equals("Eliminar")) {
+            //Borrar en la seleccion de elementos de lista
             try {
                 statement = miCon.prepareStatement("DELETE FROM taquilla WHERE titulo='" + listaPeliculas.getSelectedValue().titulo + "';");
                 statement.execute();
@@ -102,9 +102,8 @@ public class VentanicaGuapa extends JFrame implements ActionListener {
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
-
+            
             modelo.remove(listaPeliculas.getSelectedIndex());
-
 
         } else if (txtBotones.equals("Filtrar")) {
             listaPeliculas.clearSelection();
@@ -114,12 +113,7 @@ public class VentanicaGuapa extends JFrame implements ActionListener {
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
-            //listaFiltrada.setModel(modeloFiltrado);
-
-
         }
-
-
     }
 }
 
